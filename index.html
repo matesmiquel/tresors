@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tresors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            width: 150px;
+            text-align: center;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            overflow: hidden;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="number" id="image-number" placeholder="Codi" min="0" max="999">
+    </header>
+    <main>
+        <img id="image-display" src="" alt="Imagen">
+    </main>
+    
+    <script>
+        // Muestra la imagen correspondiente al número ingresado
+        function showImage() {
+            const numberInput = document.getElementById('image-number');
+            const image = document.getElementById('image-display');
+            let number = parseInt(numberInput.value, 10);
+
+            if (!isNaN(number) && number >= 0 && number <= 999) {
+                // Asegura que los números sean de tres dígitos
+                const formattedNumber = number.toString().padStart(3, '0');
+                image.src = `imatges/${formattedNumber}.jpg`;
+                image.style.display = 'block';
+            } else {
+                alert('Està pensat per nombres entre 0 i 999.');
+                image.style.display = 'none';
+            }
+
+            // Limpia el contenido del cuadro de entrada
+            numberInput.value = '';
+        }
+
+        // Detecta la tecla Enter para mostrar la imagen
+        document.getElementById('image-number').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                showImage();
+            }
+        });
+    </script>
+</body>
+</html>
